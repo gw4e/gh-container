@@ -14,11 +14,18 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: node:18
+    services:
+      themongodbservicename:
+        image: mongo
+        env:
+          MONGO_INITDB_ROOT_USER_NAME: root
+          MONGO_INITDB_ROOT_PASSWORD: pwd
+
     env:
-      MONGODB_CONNECTION_PROTOCOL: mongodb+srv
-      MONGODB_CLUSTER_ADDRESS: ${{ secrets.MONGODB_CLUSTER_ADDRESS }}
-      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
-      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+      MONGODB_CONNECTION_PROTOCOL: mongodb # mongodb+srv
+      MONGODB_CLUSTER_ADDRESS: themongodbservicename # ${{ secrets.MONGODB_CLUSTER_ADDRESS }}
+      MONGODB_USERNAME: root # ${{ secrets.MONGODB_USERNAME }}
+      MONGODB_PASSWORD: pwd # ${{ secrets.MONGODB_PASSWORD }}
       PORT: 8080
     steps:
       - name: Get Code
